@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <xc.h>
+
+#define _XTAL_FREQ 80000000
+
+int aux = 0;
+
+int main(void) {
+    TRISB1 = 0;
+    TRISB0 = 1;
+    while(1){
+        if(PORTBbits.RB0){
+            if(aux == 0)
+                aux = 1;
+            if(aux == 1)
+                aux = 0;
+            __delay_ms(100);
+        }
+        if(aux == 1){
+            RB1 = 1;
+            __delay_ms(200);
+            RB1 = 0;
+            __delay_ms(200); 
+        }
+        if(aux == 0){
+            RB1 = 1;
+            __delay_ms(1000);
+            RB1 = 0;
+            __delay_ms(1000); 
+        }
+        
+    }
+            
+    return 0;
+}
